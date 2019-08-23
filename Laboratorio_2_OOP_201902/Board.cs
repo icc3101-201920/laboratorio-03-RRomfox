@@ -115,35 +115,12 @@ namespace Laboratorio_2_OOP_201902
             {
                 new List <Card >( playerCards [0]["captain"]),
                 new List <Card >( playerCards [1]["captain"])
-            }
-        }
-        public void DestroyCombatCards()
-        {
-            this.meleeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-            this.rangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-            this.longRangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-        };
-        public void DestroySpecialCards()
-        {
-            this.specialMeleeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
-            this.specialRangeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
-            this.specialLongRangeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
+            };
+            this.playerCards = new Dictionary<string, List<Card>>[DEFAULT_NUMBER_OF_PLAYERS];
             this.weatherCards = new List<SpecialCard>();
+
         }
-        public int[] GetMeleeAttackPoints()
-        {
-            //Debe sumar todos los puntos de ataque de las cartas melee y retornar los valores por jugador.
-            int[] totalAttack = new int[] { 0, 0 };
-            for (int i=0; i < 2; i++)
-            {
-                foreach (CombatCard meleeCard in meleeCards[i])
-                {
-                    totalAttack[i] += meleeCard.AttackPoints;
-                }
-            }
-            return totalAttack;
-            
-        }
+        
         public int[] GetRangeAttackPoints()
         {
             //Debe sumar todos los puntos de ataque de las cartas range y retornar los valores por jugador.
