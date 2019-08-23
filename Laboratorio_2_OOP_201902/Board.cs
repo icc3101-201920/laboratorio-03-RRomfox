@@ -107,67 +107,14 @@ namespace Laboratorio_2_OOP_201902
                 }
             }
         }
-        public void AddCombatCard(int playerId, CombatCard combatCard)
+
+
+        public void DestroyCards()
         {
-            if (combatCard.Type == "melee")
+            List<Card>[] captainCards = new List<Card>[DEFAULT_NUMBER_OF_PLAYERS]
             {
-                meleeCards[playerId].Add(combatCard);
-            }
-            else if (combatCard.Type == "range")
-            {
-                rangeCards[playerId].Add(combatCard);
-            }
-            else
-            {
-                longRangeCards[playerId].Add(combatCard);
-            }
-            
-        }
-        public void AddSpecialCard(SpecialCard specialCard, int playerId = -1, string buffType = null)
-        {
-            if (specialCard.Type == "captain")
-            {
-                if (playerId == 0 || playerId == 1)
-                {
-                    captainCards[playerId] = specialCard;
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException();
-                }
-            }
-            else if (specialCard.Type == "weather")
-            {
-                weatherCards.Add(specialCard);
-            }
-            else
-            {
-                if (buffType != null)
-                {
-                    if (playerId == 0 || playerId == 1)
-                    {
-                        if (buffType == "melee")
-                        {
-                            specialMeleeCards[playerId] = specialCard;
-                        }
-                        else if (buffType == "range")
-                        {
-                            specialRangeCards[playerId] = specialCard;
-                        }
-                        else
-                        {
-                            specialLongRangeCards[playerId] = specialCard;
-                        }
-                    }
-                    else
-                    {
-                        throw new IndexOutOfRangeException();
-                    }   
-                }
-                else
-                {
-                    throw new ArgumentNullException();
-                }
+                new List <Card >( playerCards [0]["captain"]),
+                new List <Card >( playerCards [1]["captain"])
             }
         }
         public void DestroyCombatCards()
@@ -175,7 +122,7 @@ namespace Laboratorio_2_OOP_201902
             this.meleeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
             this.rangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
             this.longRangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-        }
+        };
         public void DestroySpecialCards()
         {
             this.specialMeleeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
