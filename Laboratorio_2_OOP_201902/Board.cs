@@ -11,67 +11,12 @@ namespace Laboratorio_2_OOP_201902
         private const int DEFAULT_NUMBER_OF_PLAYERS = 2;
 
         //Atributos
-        private List<CombatCard>[] meleeCards;
-        private List<CombatCard>[] rangeCards;
-        private List<CombatCard>[] longRangeCards;
 
-        private SpecialCard[] specialMeleeCards;
-        private SpecialCard[] specialRangeCards;
-        private SpecialCard[] specialLongRangeCards;
-        private SpecialCard[] captainCards;
+        private Dictionary<string, List<Card>> [] playerCards;
 
         private List<SpecialCard> weatherCards;
 
         //Propiedades
-        public List<CombatCard>[] MeleeCards
-        {
-            get
-            {
-                return this.meleeCards;
-            }
-        }
-        public List<CombatCard>[] RangeCards
-        {
-            get
-            {
-                return this.rangeCards;
-            }
-        }
-        public List<CombatCard>[] LongRangeCards
-        {
-            get
-            {
-                return this.longRangeCards;
-            }
-        }
-        public SpecialCard[] SpecialMeleeCards
-        {
-            get
-            {
-                return this.specialMeleeCards;
-            }
-        }
-        public SpecialCard[] SpecialRangeCards
-        {
-            get
-            {
-                return this.specialRangeCards;
-            }
-        }
-        public SpecialCard[] SpecialLongRangeCards
-        {
-            get
-            {
-                return this.specialLongRangeCards;
-            }
-        }
-        public SpecialCard[] CaptainCards
-        {
-            get
-            {
-                return this.captainCards;
-            }
-        }
         public List<SpecialCard> WeatherCards
         {
             get
@@ -80,23 +25,53 @@ namespace Laboratorio_2_OOP_201902
             }
         }
 
+        public Dictionary<string, List<Card>>[] PlayerCards
+        {
+            get
+            {
+                return this.playerCards;
+            }
+        }
 
         //Constructor
         public Board()
         {
-            this.meleeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-            this.rangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-            this.longRangeCards = new List<CombatCard>[DEFAULT_NUMBER_OF_PLAYERS];
-            this.specialMeleeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
-            this.specialRangeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
-            this.specialLongRangeCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
-            this.captainCards = new SpecialCard[DEFAULT_NUMBER_OF_PLAYERS];
             this.weatherCards = new List<SpecialCard>();
+            this.playerCards = new Dictionary<string, List<Card>>[DEFAULT_NUMBER_OF_PLAYERS]; // Inicializa el arreglo de diccionarios.
+            this.playerCards[0] = new Dictionary<string, List<Card>>(); //Inicializa los diccionarios.
+            this.playerCards[1] = new Dictionary<string, List<Card>>(); //Inicializa los diccionarios
         }
 
 
 
         //Metodos
+
+        public void AddCard(Card card, int playerId = -1, string buffType= null)
+        {
+            // Revisar si la carta recibida en el ￿parmetro es Combat o Special
+            if (card.GetType().Name == nameof(CombatCard))
+            {
+                if (playerCards[playerId].ContainsKey(card.Type))
+                {
+                    if (playerCards[playerId].ContainsKey(card.Type))
+                    {
+                        playerCards[playerId][card.Type].Add(card);
+                    }
+                    else
+                    {
+                        playerCards[playerId].Add(card.Type, new List<Card>() { card });
+                    }
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException("No player id given");
+                }
+            }
+            else
+            {
+
+            }
+        }
         public void AddCombatCard(int playerId, CombatCard combatCard)
         {
             if (combatCard.Type == "melee")
