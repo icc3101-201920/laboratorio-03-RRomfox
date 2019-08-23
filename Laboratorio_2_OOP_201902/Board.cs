@@ -48,18 +48,22 @@ namespace Laboratorio_2_OOP_201902
 
         public void AddCard(Card card, int playerId = -1, string buffType= null)
         {
-            // Revisar si la carta recibida en el ￿parmetro es Combat o Special
+            // Revisar si la carta recibida en el parmetro es Combat o Special
             if (card.GetType().Name == nameof(CombatCard))
             {
-                if (playerCards[playerId].ContainsKey(card.Type))
+                if (playerId == 0 || playerId == 1)
                 {
+
                     if (playerCards[playerId].ContainsKey(card.Type))
                     {
-                        playerCards[playerId][card.Type].Add(card);
-                    }
-                    else
-                    {
-                        playerCards[playerId].Add(card.Type, new List<Card>() { card });
+                        if (playerCards[playerId].ContainsKey(card.Type))
+                        {
+                            playerCards[playerId][card.Type].Add(card);
+                        }
+                        else
+                        {
+                            playerCards[playerId].Add(card.Type, new List<Card>() { card });
+                        }
                     }
                 }
                 else
@@ -69,7 +73,38 @@ namespace Laboratorio_2_OOP_201902
             }
             else
             {
-
+                if (card.GetType().Name == "captain")
+                {
+                    if (playerId == 0 || playerId == 1)
+                    {
+                        if (playerCards[playerId].ContainsKey(card.Type))
+                        {
+                            throw new IndexOutOfRangeException("Player already has a captain.");
+                        }
+                        else
+                        {
+                            playerCards[playerId].Add(card.Type, new List<Card>() { card });
+                        }
+                    }
+                }
+                if (buffType != null)
+                {
+                    if (playerId == 0 || playerId == 1)
+                    {
+                        if (playerCards[playerId].ContainsKey(card.Type))
+                        {
+                            throw new IndexOutOfRangeException();
+                        }
+                        else
+                        {
+                            playerCards[playerId].Add(card.Type, new List<Card>() { card });
+                        }
+                    }
+                }
+                if (card.GetType().Name == "weather")
+                {
+                    weatherCards.Add(card)
+                }
             }
         }
         public void AddCombatCard(int playerId, CombatCard combatCard)
